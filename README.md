@@ -1,5 +1,6 @@
 # Getmark
 Chrome extension to take notes for specific pages and manage them effortlessly.
+Link to download: https://chromewebstore.google.com/detail/getmark/jjigjenboocbojhbfeohoicappjobekn
 
 ## About
 This repo is for chrome extension to add notes to pages so that you can, 
@@ -14,3 +15,5 @@ Now never be out of context more than once when surfing the web
 Have ideas to make it better or to fix bugs you encountered?
 
 Create an issue and we'll work on it
+
+#lets_get_marked_with_GetMark
