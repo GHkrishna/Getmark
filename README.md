@@ -1,6 +1,8 @@
 # Getmark
-Chrome extension to take notes for specific pages and manage them effortlessly.
-Link to download: https://chromewebstore.google.com/detail/getmark/jjigjenboocbojhbfeohoicappjobekn
+Extension to take notes for specific pages and manage them effortlessly.
+Links to download: 
+- Chrome: https://chromewebstore.google.com/detail/getmark/jjigjenboocbojhbfeohoicappjobekn
+- Firefox: https://addons.mozilla.org/en-US/firefox/addon/getmark
 
 ## About
 This repo is for chrome extension to add notes to pages so that you can, 
