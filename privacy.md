@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Effective date: [Date]
+Effective date: 27/06/2024
 
 This Privacy Policy describes how your personal information is collected, used, and shared when you use the GetMark Chrome Extension ("Extension").
 
@@ -54,4 +54,4 @@ If you have any questions about this Privacy Policy, please contact us at [waske
 
 ---
 
-&copy; 2024 GetMark. All rights reserved.
+&copy; 2025 GetMark. All rights reserved.
