@@ -1,5 +1,6 @@
 # Getmark
 Extension to take notes for specific pages and manage them effortlessly.
+Landing page: https://www.getmark.dev/
 Links to download: 
 - Chrome: https://chromewebstore.google.com/detail/getmark/jjigjenboocbojhbfeohoicappjobekn
 - Firefox: https://addons.mozilla.org/en-US/firefox/addon/getmark
