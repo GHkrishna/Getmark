@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "GetMark",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mark the pages you visit and manage them easily with GetMark.",
   "permissions": [
       "storage",
@@ -9,7 +9,7 @@
   ],
   "applications": {
       "gecko": {
-          "id": "waskekrishna@gmail.com",
+          "id": "waskekrishna11@gmail.com",
           "strict_min_version": "60.0"
       }
   },
