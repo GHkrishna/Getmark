@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes Extension</title>
+  <title>GetMark Notes</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -11,28 +11,39 @@
     <button id="tab-create-note" class="active">Create Note</button>
     <button id="tab-my-notes">My Notes</button>
   </div>
+
   <div id="create-note-section">
-    <textarea placeholder="Enter your note"></textarea>
+    <textarea id="note-textarea" placeholder="Enter your note"></textarea>
+
     <input type="text" id="custom-tag" placeholder="Add custom tag">
+    <label id="tags-error-message" class="hidden">
+      <i>Tag does not exist, <b>press enter</b> to add "<span id="suggested-tag"></span>".</i>
+    </label>
+
     <button id="add-custom-tag">Add Tag</button>
     <div id="tags-container"></div>
+
     <button id="save-note">Save Note</button>
     <button id="my-dashboard">View Dashboard</button>
+
     <div id="success-message" class="hidden">
       Note added successfully!
       <button id="go-to-my-notes">Go to My Notes</button>
     </div>
   </div>
+
   <div id="my-notes-section" class="hidden">
     <input type="text" id="search-page-notes" placeholder="Search notes">
     <button id="switch-to-domain-notes">View all notes from this website</button>
     <div id="page-notes-list"></div>
     <div id="domain-notes-list" class="hidden"></div>
   </div>
-  <script src="popup.js"></script>
+
   <footer>
     <a href="privacy.html" target="_blank">Privacy Policy</a>
     <p>&copy; 2025 GetMark. All rights reserved.</p>
   </footer>
+
+  <script src="popup.js"></script>
 </body>
 </html>
