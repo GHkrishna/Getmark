@@ -1,86 +1,121 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const saveNoteButton = document.getElementById('save-note');
-  const myDashboardButton = document.getElementById('my-dashboard');
-  const searchTagInput = document.getElementById('search-tag');
-  const tagsContainer = document.getElementById('tags-container');
-  const customTagInput = document.getElementById('custom-tag');
-  const addCustomTagButton = document.getElementById('add-custom-tag');
-  const pageNotesList = document.getElementById('page-notes-list');
-  const domainNotesList = document.getElementById('domain-notes-list');
-  const searchPageNotesInput = document.getElementById('search-page-notes');
-  const tabCreateNote = document.getElementById('tab-create-note');
-  const tabMyNotes = document.getElementById('tab-my-notes');
-  const createNoteSection = document.getElementById('create-note-section');
-  const myNotesSection = document.getElementById('my-notes-section');
-  const switchToDomainNotesButton = document.getElementById('switch-to-domain-notes');
-  const successMessage = document.getElementById('success-message');
-  const goToMyNotesButton = document.getElementById('go-to-my-notes');
+  const elements = {
+    saveNoteButton: document.getElementById('save-note'),
+    myDashboardButton: document.getElementById('my-dashboard'),
+    tagsContainer: document.getElementById('tags-container'),
+    customTagInput: document.getElementById('custom-tag'),
+    addCustomTagButton: document.getElementById('add-custom-tag'),
+    pageNotesList: document.getElementById('page-notes-list'),
+    domainNotesList: document.getElementById('domain-notes-list'),
+    searchPageNotesInput: document.getElementById('search-page-notes'),
+    tabCreateNote: document.getElementById('tab-create-note'),
+    tabMyNotes: document.getElementById('tab-my-notes'),
+    createNoteSection: document.getElementById('create-note-section'),
+    myNotesSection: document.getElementById('my-notes-section'),
+    switchToDomainNotesButton: document.getElementById('switch-to-domain-notes'),
+    successMessage: document.getElementById('success-message'),
+    goToMyNotesButton: document.getElementById('go-to-my-notes'),
+    tagsErrorMessage: document.getElementById('tags-error-message'),
+    suggestedTag: document.getElementById('suggested-tag'),
+    noteTextarea: document.getElementById('note-textarea')
+  };
 
   const topTags = ['JavaScript', 'System Design', 'GitHub', 'Anime', 'Memes'];
   let allTags = [...topTags];
+  let selectedTags = new Set();
 
-  // Load custom tags from storage
   chrome.storage.sync.get(['customTags'], (result) => {
     if (result.customTags) {
       allTags = [...new Set([...allTags, ...result.customTags])];
     }
-    loadTags();
+    renderTags();
   });
 
-  // Create a tag element and add to the container
-  function createTagElement(tag, container, isSelected = false) {
+  function createTagElement(tag) {
     const tagElement = document.createElement('div');
     tagElement.classList.add('tag');
     tagElement.textContent = tag;
-    tagElement.dataset.selected = isSelected ? 'true' : 'false';
-    tagElement.style.backgroundColor = isSelected ? '#007bff' : '#f0f0f0';
-    tagElement.style.color = isSelected ? '#ffffff' : '#000000';
+
+    updateTagVisual(tagElement, selectedTags.has(tag));
+
     tagElement.addEventListener('click', () => {
-      const isSelected = tagElement.dataset.selected === 'true';
-      tagElement.dataset.selected = isSelected ? 'false' : 'true';
-      tagElement.style.backgroundColor = isSelected ? '#f0f0f0' : '#007bff';
-      tagElement.style.color = isSelected ? '#000000' : '#ffffff';
-    });
-    container.appendChild(tagElement);
-  }
-
-  // Load all tags into the tags container
-  function loadTags() {
-    tagsContainer.innerHTML = '';
-    allTags.forEach(tag => createTagElement(tag, tagsContainer));
-  }
-
-  // Add a custom tag and update storage
-  addCustomTagButton.addEventListener('click', () => {
-    const customTag = customTagInput.value.trim();
-    if (customTag) {
-      const existingTagElement = Array.from(tagsContainer.children).find(tagElement => tagElement.textContent === customTag);
-      if (existingTagElement) {
-        existingTagElement.dataset.selected = 'true';
-        existingTagElement.style.backgroundColor = '#007bff';
-        existingTagElement.style.color = '#ffffff';
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
       } else {
-        allTags.push(customTag);
-        chrome.storage.sync.get(['customTags'], (result) => {
-          const customTags = result.customTags || [];
-          customTags.push(customTag);
-          chrome.storage.sync.set({ customTags });
-        });
-        createTagElement(customTag, tagsContainer, true);
+        selectedTags.add(tag);
       }
-      customTagInput.value = '';
+      updateTagVisual(tagElement, selectedTags.has(tag));
+    });
+
+    return tagElement;
+  }
+
+  function updateTagVisual(element, isSelected) {
+    element.dataset.selected = isSelected ? 'true' : 'false';
+    element.style.backgroundColor = isSelected ? '#007bff' : '#f0f0f0';
+    element.style.color = isSelected ? '#ffffff' : '#000000';
+  }
+
+  function renderTags(filtered = null) {
+    const tagsToRender = filtered ?? allTags;
+    elements.tagsContainer.innerHTML = '';
+
+    if (tagsToRender.length === 0) {
+      elements.tagsErrorMessage.classList.remove('hidden');
+      elements.suggestedTag.textContent = elements.customTagInput.value.trim();
+      return;
+    } else {
+      elements.tagsErrorMessage.classList.add('hidden');
     }
+
+    tagsToRender.forEach(tag => {
+      const tagElement = createTagElement(tag);
+      elements.tagsContainer.appendChild(tagElement);
+    });
+  }
+
+  elements.customTagInput.addEventListener('input', async () => {
+    const query = elements.customTagInput.value.toLowerCase().trim();
+
+    if (!query) {
+      renderTags();
+      return;
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const filteredTags = allTags.filter(tag => tag.toLowerCase().includes(query));
+    renderTags(filteredTags);
   });
 
-  // Save note functionality
-  saveNoteButton.addEventListener('click', () => {
-    const noteText = document.querySelector('textarea').value.trim();
+  elements.addCustomTagButton.addEventListener('click', () => {
+    const customTag = elements.customTagInput.value.trim();
+    if (!customTag) return;
+
+    renderTags(); 
+
+    if (!allTags.includes(customTag)) {
+      allTags.push(customTag);
+      chrome.storage.sync.get(['customTags'], (result) => {
+        const customTags = result.customTags || [];
+        customTags.push(customTag);
+        chrome.storage.sync.set({ customTags });
+      });
+    }
+
+    selectedTags.add(customTag);
+    renderTags();
+    elements.customTagInput.value = '';
+  });
+
+  elements.saveNoteButton.addEventListener('click', () => {
+    const noteText = elements.noteTextarea.value.trim();
     if (!noteText) {
       alert("Note cannot be empty!");
       return;
     }
 
-    const selectedTags = Array.from(document.querySelectorAll('.tag[data-selected="true"]')).map(tag => tag.textContent);
+    const selectedTagsArray = Array.from(selectedTags);
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
@@ -89,14 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const note = {
         note: noteText,
-        tags: selectedTags,
+        tags: selectedTagsArray,
         time: Date.now(),
         url: tab.url
       };
 
       chrome.storage.sync.get([url.href, domain], (result) => {
-        const pageNotes = result[url.href] ? result[url.href].notes : [];
-        const domainNotes = result[domain] ? result[domain].notes : [];
+        const pageNotes = result[url.href]?.notes || [];
+        const domainNotes = result[domain]?.notes || [];
 
         pageNotes.push(note);
 
@@ -108,138 +143,109 @@ document.addEventListener('DOMContentLoaded', () => {
           [url.href]: { notes: pageNotes },
           [domain]: { notes: domainNotes }
         }, () => {
-          loadNotes(url.href, pageNotesList);
+          renderNotes(url.href, elements.pageNotesList);
+
           showSuccessMessage();
         });
       });
     });
 
-    document.querySelector('textarea').value = '';
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const url = new URL(tabs[0].url);
-      loadNotes(url.href, pageNotesList);
-    });
-
-    // Deselect tags after saving the note
-    Array.from(document.querySelectorAll('.tag[data-selected="true"]')).forEach(tagElement => {
-      tagElement.dataset.selected = 'false';
-      tagElement.style.backgroundColor = '#f0f0f0';
-      tagElement.style.color = '#000000';
-    });
+    elements.noteTextarea.value = '';
+    elements.customTagInput.value = '';
+    selectedTags.clear();
+    renderTags();
   });
 
-  // Show success message
   function showSuccessMessage() {
-    successMessage.classList.remove('hidden');
+    elements.successMessage.classList.remove('hidden');
     setTimeout(() => {
-      successMessage.classList.add('hidden');
+      elements.successMessage.classList.add('hidden');
     }, 3000);
   }
 
-  // Navigate to My Notes tab
-  goToMyNotesButton.addEventListener('click', () => {
-    tabCreateNote.classList.remove('active');
-    tabMyNotes.classList.add('active');
-    createNoteSection.classList.add('hidden');
-    myNotesSection.classList.remove('hidden');
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const url = new URL(tabs[0].url);
-      loadNotes(url.href, pageNotesList);
-    });
+  elements.goToMyNotesButton.addEventListener('click', () => {
+    switchTab('my-notes');
   });
 
-  // Open the dashboard
-  myDashboardButton.addEventListener('click', () => {
+  elements.myDashboardButton.addEventListener('click', () => {
     chrome.tabs.create({ url: chrome.runtime.getURL('dashboard.html') });
   });
 
-  // Tab switching
-  tabCreateNote.addEventListener('click', () => {
-    tabCreateNote.classList.add('active');
-    tabMyNotes.classList.remove('active');
-    createNoteSection.classList.remove('hidden');
-    myNotesSection.classList.add('hidden');
-  });
+  elements.tabCreateNote.addEventListener('click', () => switchTab('create-note'));
+  elements.tabMyNotes.addEventListener('click', () => switchTab('my-notes'));
 
-  tabMyNotes.addEventListener('click', () => {
-    tabCreateNote.classList.remove('active');
-    tabMyNotes.classList.add('active');
-    createNoteSection.classList.add('hidden');
-    myNotesSection.classList.remove('hidden');
+  function switchTab(tab) {
+    const isCreate = tab === 'create-note';
+
+    elements.tabCreateNote.classList.toggle('active', isCreate);
+    elements.tabMyNotes.classList.toggle('active', !isCreate);
+    elements.createNoteSection.classList.toggle('hidden', !isCreate);
+    elements.myNotesSection.classList.toggle('hidden', isCreate);
+
+    if (!isCreate) {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const url = new URL(tabs[0].url);
+        renderNotes(url.href, elements.pageNotesList);
+      });
+    }
+  }
+
+  elements.switchToDomainNotesButton.addEventListener('click', () => {
+    const isPageNotesHidden = elements.pageNotesList.classList.toggle('hidden');
+    elements.domainNotesList.classList.toggle('hidden', !isPageNotesHidden);
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const url = new URL(tabs[0].url);
-      loadNotes(url.href, pageNotesList);
+      if (isPageNotesHidden) {
+        elements.switchToDomainNotesButton.textContent = 'View notes from current page';
+        renderNotes(url.hostname, elements.domainNotesList);
+      } else {
+        elements.switchToDomainNotesButton.textContent = 'View all notes from this website';
+        renderNotes(url.href, elements.pageNotesList);
+      }
     });
   });
 
-  // Switch between page and domain notes
-  switchToDomainNotesButton.addEventListener('click', () => {
-    pageNotesList.classList.toggle('hidden');
-    domainNotesList.classList.toggle('hidden');
-    if (pageNotesList.classList.contains('hidden')) {
-      switchToDomainNotesButton.textContent = 'View notes from current page';
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        const url = new URL(tabs[0].url);
-        loadNotes(url.hostname, domainNotesList);
-      });
-    } else {
-      switchToDomainNotesButton.textContent = 'View all notes from this website';
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        const url = new URL(tabs[0].url);
-        loadNotes(url.href, pageNotesList);
-      });
-    }
-  });
-
-  // Search notes within the page
-  searchPageNotesInput.addEventListener('input', () => {
-    const query = searchPageNotesInput.value.toLowerCase();
-    Array.from(pageNotesList.children).forEach(note => {
+  elements.searchPageNotesInput.addEventListener('input', () => {
+    const query = elements.searchPageNotesInput.value.toLowerCase();
+    Array.from(elements.pageNotesList.children).forEach(note => {
       note.style.display = note.textContent.toLowerCase().includes(query) ? '' : 'none';
     });
   });
 
-  // Load notes for the active tab
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const tab = tabs[0];
-    const url = new URL(tab.url);
-    loadNotes(url.href, pageNotesList);
-  });
-
-  // Load notes function
-  function loadNotes(key, container) {
+  function renderNotes(key, container) {
     chrome.storage.sync.get([key], (result) => {
-      const notes = result[key] ? result[key].notes : [];
+      const notes = result[key]?.notes || [];
       container.innerHTML = '';
+
       notes.forEach(note => {
         const noteElement = document.createElement('div');
         noteElement.classList.add('note');
 
-        // Top section with tags
         const tagsContainer = document.createElement('div');
         tagsContainer.classList.add('note-tags');
         note.tags.forEach(tag => {
-          const tagElement = document.createElement('span');
-          tagElement.classList.add('tag');
-          tagElement.textContent = tag;
-          tagsContainer.appendChild(tagElement);
+          const tagEl = document.createElement('span');
+          tagEl.classList.add('tag');
+          tagEl.textContent = tag;
+          tagsContainer.appendChild(tagEl);
         });
 
-        // Middle section with note text
         const noteText = document.createElement('p');
         noteText.textContent = note.note;
 
-        // Bottom section with timestamp
         const timestamp = document.createElement('small');
         timestamp.textContent = new Date(note.time).toLocaleString();
 
-        // Append sections to note element
-        noteElement.appendChild(tagsContainer);
-        noteElement.appendChild(noteText);
-        noteElement.appendChild(timestamp);
-
+        noteElement.append(tagsContainer, noteText, timestamp);
         container.appendChild(noteElement);
       });
     });
   }
+
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const url = new URL(tabs[0].url);
+    renderNotes(url.href, elements.pageNotesList);
+  });
+
 });

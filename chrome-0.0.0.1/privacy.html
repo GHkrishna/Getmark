@@ -1,88 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - GetMark</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2, h3 {
-            color: #333;
-        }
-        p {
-            color: #555;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.9em;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - GetMark</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 40px auto;
+      padding: 20px;
+      max-width: 800px;
+      background-color: #f9fafb;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #222;
+    }
+    p {
+      color: #555;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    code {
+      background-color: #eaeaea;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 90%;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p>Effective date: 27/06/2024</p>
 
-    <p>This Privacy Policy describes how your personal information is collected, used, and shared when you use the GetMark Chrome Extension ("Extension").</p>
+  <h1>Privacy Policy</h1>
+  <p><strong>Effective date:</strong> 27/06/2024</p>
 
-    <h2>Information We Collect:</h2>
-    <h3>1. Notes and Tags:</h3>
-    <p>All notes and tags you create are stored locally on your device using Chrome's storage sync. This ensures your data is available across devices where you are signed into Chrome.</p>
+  <p>This Privacy Policy explains how GetMark ("Extension", "we", "our") handles your information while using the extension on Google Chrome.</p>
 
-    <h3>2. Usage Data:</h3>
-    <p>We collect anonymous information on how you use the Extension to help us improve its functionality and user experience. This data is not personally identifiable and is stored locally.</p>
+  <h2>What Data We Collect</h2>
 
-    <h2>Why We Need Permissions:</h2>
-    <h3>1. activeTab:</h3>
-    <p>The <code>activeTab</code> permission is required to interact with the current tab you are viewing. This allows the Extension to capture the URL of the active tab and associate your notes with the correct webpage or domain.</p>
+  <h3>1. Notes and Tags (User Input)</h3>
+  <p>All notes, tags, and URLs that you manually add while using GetMark are stored locally in Chrome’s synchronized storage (using <code>chrome.storage.sync</code>).</p>
+  <p>This allows your notes to be available across your Chrome profiles where you are logged in.</p>
 
-    <h3>2. Host Permissions:</h3>
-    <p>Host permissions are needed to access the URLs of the pages where you take notes. This allows the Extension to store and retrieve notes based on the domain or specific page URL, providing a seamless and context-aware note-taking experience.</p>
+  <h3>2. URLs of Active Tabs</h3>
+  <p>GetMark reads the URL of the active tab when you create a note. This is solely used to associate your note with the corresponding webpage. We do not monitor your browsing or store URLs automatically.</p>
 
-    <h3>3. Remote Code Execution:</h3>
-    <p>The Extension does not execute remote code. All code runs locally within the Extension, and any updates are delivered through the official Chrome Web Store update mechanism.</p>
+  <h3>3. No Analytics, No Tracking</h3>
+  <p>GetMark does not collect any analytics, usage statistics, personal identifiers, or browsing history. We do not use any third-party analytics services or ad networks.</p>
 
-    <h3>4. Scripting:</h3>
-    <p>Scripting permissions are not required.</p>
+  <h3>4. No Server Storage</h3>
+  <p>We do not operate any server or cloud infrastructure. All your data remains local to your Chrome account via Chrome Sync storage.</p>
 
-    <h3>5. Storage:</h3>
-    <p>Storage permissions are crucial for saving your notes, tags, and settings securely on your device. This allows you to access your data from any device where you use Chrome with the Extension installed and ensures that your notes are persistent between sessions.</p>
+  <h2>Permissions Explained</h2>
 
-    <h2>How We Use Your Information:</h2>
-    <h3>Providing and Improving the Service:</h3>
-    <p>We use the collected data to provide and maintain the functionality of the Extension, improve user experience, and develop new features. All data is stored locally and is not shared with third parties.</p>
+  <h3><code>activeTab</code></h3>
+  <p>Allows the extension to access the current page URL only when you manually create a note.</p>
 
-    <h3>User Support:</h3>
-    <p>Your data helps us to respond to your support requests and address any issues you encounter. This information is also stored locally and is not transmitted to any external servers.</p>
+  <h3><code>storage</code></h3>
+  <p>Enables saving and syncing your notes, tags, and preferences locally via Chrome’s <code>chrome.storage</code> API.</p>
 
-    <h2>Sharing Your Information:</h2>
-    <p>We do not share your personal information with third parties. All data is stored locally on your device and is only used to provide the core functionality of the Extension.</p>
+  <h3><code>host_permissions</code></h3>
+  <p>Allows associating notes with specific domains/pages for better search and filtering functionality.</p>
 
-    <h2>Security:</h2>
-    <p>We take reasonable measures to protect your data from unauthorized access, alteration, disclosure, or destruction. However, no internet transmission is completely secure, and we cannot guarantee absolute security.</p>
+  <h3>No Remote Code Execution</h3>
+  <p>GetMark does not load or execute any code from external sources. All code runs entirely within the extension package reviewed by Chrome Web Store.</p>
 
-    <h2>Your Rights:</h2>
-    <p>You can request access to, correction, or deletion of your personal data stored by the Extension. To exercise these rights, please contact us at <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a>.</p>
+  <h2>How We Use Your Information</h2>
 
-    <h2>Changes to This Privacy Policy:</h2>
-    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+  <ul>
+    <li>To provide the note-taking functionality tied to specific webpages</li>
+    <li>To allow searching, sorting, and filtering your personal notes</li>
+    <li>To enable syncing your data across Chrome devices</li>
+  </ul>
 
-    <h2>Contact Us:</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a>.</p>
+  <h2>How We Do <u>Not</u> Use Your Information</h2>
 
-    <footer>
-        <p>&copy; 2025 GetMark. All rights reserved.</p>
-    </footer>
+  <ul>
+    <li>We do not share or sell your data to third parties</li>
+    <li>We do not collect your browsing history</li>
+    <li>We do not run ads or targeted marketing</li>
+    <li>We do not store any of your data on external servers</li>
+  </ul>
+
+  <h2>Data Security</h2>
+  <p>Since all your data remains inside your Chrome storage, its security depends on the security of your Google Account and Chrome browser.</p>
+  <p>We do not access your data unless you voluntarily provide information during support conversations.</p>
+
+  <h2>Your Rights & Data Deletion</h2>
+  <p>You may delete your notes at any time directly through the extension interface. If you uninstall GetMark, all data stored in Chrome’s synchronized storage will be removed automatically.</p>
+  <p>If you have any questions or wish to request manual data deletion assistance, contact us at <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a>.</p>
+
+  <h2>Policy Changes</h2>
+  <p>We may update this policy if required for new features or Chrome Web Store compliance. Updates will always be reflected on this page, and material changes will be communicated via extension updates.</p>
+
+  <h2>Contact Information</h2>
+  <p>For privacy inquiries or support:</p>
+  <p>Email: <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a></p>
+
+  <footer>
+    &copy; 2025 GetMark. All rights reserved.
+  </footer>
+
 </body>
 </html>

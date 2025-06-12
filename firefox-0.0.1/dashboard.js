@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load custom tags from storage
   chrome.storage.sync.get(['customTags'], (result) => {
+    console.log("Hello world")
     if (result.customTags) {
       allTags = [...new Set([...allTags, ...result.customTags])];
     }

@@ -1,88 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - GetMark</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2, h3 {
-            color: #333;
-        }
-        p {
-            color: #555;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.9em;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - GetMark (Firefox)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 40px auto;
+      padding: 20px;
+      max-width: 800px;
+      background-color: #f9fafb;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #222;
+    }
+    p {
+      color: #555;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    code {
+      background-color: #eaeaea;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 90%;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p>Effective date: 27/06/2024</p>
 
-    <p>This Privacy Policy describes how your personal information is collected, used, and shared when you use the GetMark Chrome Extension ("Extension").</p>
+  <h1>Privacy Policy (Firefox Edition)</h1>
+  <p><strong>Effective Date:</strong> 27/06/2024</p>
 
-    <h2>Information We Collect:</h2>
-    <h3>1. Notes and Tags:</h3>
-    <p>All notes and tags you create are stored locally on your device using Chrome's storage sync. This ensures your data is available across devices where you are signed into Chrome.</p>
+  <p>This Privacy Policy explains how the GetMark Firefox Extension ("Extension", "we", "our") handles your data while using the extension through Mozilla Firefox.</p>
 
-    <h3>2. Usage Data:</h3>
-    <p>We collect anonymous information on how you use the Extension to help us improve its functionality and user experience. This data is not personally identifiable and is stored locally.</p>
+  <h2>Data We Collect & Store</h2>
 
-    <h2>Why We Need Permissions:</h2>
-    <h3>1. activeTab:</h3>
-    <p>The <code>activeTab</code> permission is required to interact with the current tab you are viewing. This allows the Extension to capture the URL of the active tab and associate your notes with the correct webpage or domain.</p>
+  <h3>1. User Notes & Tags</h3>
+  <p>All notes and tags you manually create are stored locally in your Firefox profile using <code>browser.storage.sync</code>. This enables syncing your notes across your Firefox devices where you're signed into your Firefox account.</p>
 
-    <h3>2. Host Permissions:</h3>
-    <p>Host permissions are needed to access the URLs of the pages where you take notes. This allows the Extension to store and retrieve notes based on the domain or specific page URL, providing a seamless and context-aware note-taking experience.</p>
+  <h3>2. Active Tab URL (Only When Used)</h3>
+  <p>The extension reads the URL of the active tab only when you create a note. This is used to link your note to the page or domain you’re referencing. We do not log or track browsing history.</p>
 
-    <h3>3. Remote Code Execution:</h3>
-    <p>The Extension does not execute remote code. All code runs locally within the Extension, and any updates are delivered through the official Chrome Web Store update mechanism.</p>
+  <h3>3. No Automatic Data Collection</h3>
+  <p>We do not collect any automatic telemetry, analytics, or personal information. We do not track your activity, behavior, or browser usage in any way.</p>
 
-    <h3>4. Scripting:</h3>
-    <p>Scripting permissions are not required.</p>
+  <h3>4. No Remote Servers</h3>
+  <p>All data is stored locally on your Firefox profile and synchronized using Firefox Sync (if enabled). We do not operate any external server or database. No data is sent or uploaded to any third party.</p>
 
-    <h3>5. Storage:</h3>
-    <p>Storage permissions are crucial for saving your notes, tags, and settings securely on your device. This allows you to access your data from any device where you use Chrome with the Extension installed and ensures that your notes are persistent between sessions.</p>
+  <h2>Permissions Explanation</h2>
 
-    <h2>How We Use Your Information:</h2>
-    <h3>Providing and Improving the Service:</h3>
-    <p>We use the collected data to provide and maintain the functionality of the Extension, improve user experience, and develop new features. All data is stored locally and is not shared with third parties.</p>
+  <h3><code>activeTab</code></h3>
+  <p>Required to access the current tab’s URL for associating notes with the page you are viewing.</p>
 
-    <h3>User Support:</h3>
-    <p>Your data helps us to respond to your support requests and address any issues you encounter. This information is also stored locally and is not transmitted to any external servers.</p>
+  <h3><code>storage</code></h3>
+  <p>Used to store your notes, tags, and settings inside the Firefox browser securely.</p>
 
-    <h2>Sharing Your Information:</h2>
-    <p>We do not share your personal information with third parties. All data is stored locally on your device and is only used to provide the core functionality of the Extension.</p>
+  <h3><code>host_permissions</code></h3>
+  <p>Allows associating notes to specific domains for filtering and search purposes. No content from pages is accessed or read.</p>
 
-    <h2>Security:</h2>
-    <p>We take reasonable measures to protect your data from unauthorized access, alteration, disclosure, or destruction. However, no internet transmission is completely secure, and we cannot guarantee absolute security.</p>
+  <h3>No Remote Code Execution</h3>
+  <p>The extension does not load or execute any code from external sources. All logic is bundled within the signed WebExtension package.</p>
 
-    <h2>Your Rights:</h2>
-    <p>You can request access to, correction, or deletion of your personal data stored by the Extension. To exercise these rights, please contact us at <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a>.</p>
+  <h2>How We Use Your Information</h2>
 
-    <h2>Changes to This Privacy Policy:</h2>
-    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+  <ul>
+    <li>To allow you to create, view, edit, and organize notes tied to specific webpages.</li>
+    <li>To provide search, filtering, and sorting capabilities across your notes.</li>
+    <li>To optionally sync your notes across Firefox devices if Firefox Sync is enabled by the user.</li>
+  </ul>
 
-    <h2>Contact Us:</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a>.</p>
+  <h2>How We Do Not Use Your Information</h2>
 
-    <footer>
-        <p>&copy; 2025 GetMark. All rights reserved.</p>
-    </footer>
+  <ul>
+    <li>We do not share, sell, or monetize your data.</li>
+    <li>We do not collect your browsing history or search activity.</li>
+    <li>We do not serve advertisements or marketing based on your data.</li>
+    <li>We do not store any of your data on any remote server controlled by us or third parties.</li>
+  </ul>
+
+  <h2>Security of Your Data</h2>
+  <p>Your data remains secured within your Firefox profile and/or Firefox Sync. We do not have access to your data. You control the retention and deletion of your own notes and tags.</p>
+
+  <h2>User Controls</h2>
+  <p>You can delete any note, tag, or all your data at any time through the extension interface. Uninstalling the extension removes all associated data from your browser.</p>
+
+  <h2>Data Disclosure</h2>
+  <p>Since we do not store your data, we have no data to disclose to third parties, law enforcement, or any government agency.</p>
+
+  <h2>Changes to This Privacy Policy</h2>
+  <p>We may update this Privacy Policy when releasing new features or updates required by Mozilla AMO policies. You will always be able to review the latest version on our official website or store listing.</p>
+
+  <h2>Contact Information</h2>
+  <p>If you have any questions, feedback, or concerns about this Privacy Policy, please contact us at <a href="mailto:waskekrishna11@gmail.com">waskekrishna11@gmail.com</a>.</p>
+
+  <footer>
+    &copy; 2025 GetMark. All rights reserved.
+  </footer>
+
 </body>
 </html>
